@@ -19,6 +19,6 @@ async def ping(ctx):
 
 @bot.command()
 async def ciao(ctx):
-    await ctx.send('ciao sono neegro!')
-    
+    await ctx.send('ciao sono nerd')
+
 bot.run(TOKEN)
