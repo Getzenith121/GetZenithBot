@@ -21,7 +21,7 @@ async def ping(ctx):
 async def ciao(ctx):
     await ctx.send('ciao sono nerd')
 
-    @bot.command()
+@bot.command()
 async def paypal(ctx):
     await ctx.send('paypal: @ZenithDMADMA (Friends and family)')
 
