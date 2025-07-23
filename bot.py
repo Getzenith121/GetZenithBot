@@ -23,7 +23,7 @@ def keep_alive():
 
 @client.event
 async def on_ready():
-    print(f'✅ Bot connesso come {client.user}')
+    print(f"✅ Bot connesso come {client.user}")
 
 @client.event
 async def on_message(message):
@@ -31,5 +31,10 @@ async def on_message(message):
         return
 
     if message.content.lower() == "!ping":
-        await message.ch
+        await message.channel.send("🏓 Pong!")
+
+if __name__ == "__main__":
+    keep_alive()  # Avvia il server Flask (obbligatorio per Render)
+    TOKEN = os.getenv("DISCORD_TOKEN")  # Prende il token da Render
+    client.run(TOKEN)
 
