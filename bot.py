@@ -1,28 +1,35 @@
-import os
 import discord
-from discord.ext import commands
-
-TOKEN = os.environ["DISCORD_TOKEN"]
+import os
+from flask import Flask
+from threading import Thread
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+client = discord.Client(intents=intents)
 
-@bot.event
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot attivo!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+@client.event
 async def on_ready():
-    print(f'Bot online come {bot.user}')
+    print(f'✅ Bot connesso come {client.user}')
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send('Pong!')
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
 
-@bot.command()
-async def ciao(ctx):
-    await ctx.send('ciao sono nerd')
+    if message.content.lower() == "!ping":
+        await message.ch
 
-@bot.command()
-async def paypal(ctx):
-    await ctx.send('paypal: @ZenithDMADMA (Friends and family)')
-
-bot.run(TOKEN)
