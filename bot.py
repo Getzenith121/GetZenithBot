@@ -27,11 +27,17 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    print(f"Messaggio ricevuto: {message.content}")  # <-- AGGIUNGI QUESTA RIGA QUI
+
     if message.author == client.user:
         return
 
     if message.content.lower() == "!ping":
         await message.channel.send("🏓 Pong!")
+
+    if message.content.lower() == "!paypal":
+        await message.channel.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
+
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask (obbligatorio per Render)
