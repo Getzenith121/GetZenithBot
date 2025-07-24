@@ -38,11 +38,34 @@ async def ping(ctx):
 async def paypal(ctx):
     await ctx.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
 
-# Comando dna che manda un video
 @bot.command()
 async def dna(ctx):
-    video_path = "dna_id_.mp4"  # Assicurati che il file sia nella stessa cartella di bot.py
-    await ctx.send(file=discord.File(video_path))
+    embed = discord.Embed(
+        title="📖 Come leggere la tua DNA ID",
+        description=(
+            "Segui questi passaggi per ottenere il tuo DNA ID univoco:\n\n"
+            "1️⃣ **Collega la scheda 75T via USB/JTAG (CH347)**\n"
+            "2️⃣ **Installa i driver CH347 se richiesto**\n"
+            "3️⃣ **Apri il tool GetZenith 75T DNA Reader**\n"
+            "4️⃣ **Attendi qualche secondo**\n\n"
+            "Quando compare la scritta:\n"
+            "```yaml\n"
+            "Found DNA: 0x38F4A0F21B3D7C12\n"
+            "```\n"
+            "📋 Copia quel codice e invialo nel ticket a GetZenith\n"
+            "🔐 Ti genereremo il firmware legato al tuo ID univoco di scheda"
+        ),
+        color=0x2ecc71
+    )
+    embed.set_thumbnail(url="https://i.imgur.com/AJdW69A.png")  # Esempio thumbnail
+    embed.add_field(
+        name="🎥 Video tutorial",
+        value="[Guarda il video su YouTube](https://www.youtube.com/watch?v=tuo_video_link)",
+        inline=False
+    )
+    embed.set_footer(text="GetZenith Team", icon_url="https://i.imgur.com/8w0f6pS.png")  # Icona footer
+
+    await ctx.send(embed=embed)
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask
