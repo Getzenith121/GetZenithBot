@@ -1,13 +1,10 @@
 import discord
+from discord.ext import commands
 import os
 from flask import Flask
 from threading import Thread
 
-intents = discord.Intents.default()
-intents.message_content = True
-
-client = discord.Client(intents=intents)
-
+# Flask server per tenere attivo il bot su Render o simili
 app = Flask('')
 
 @app.route('/')
@@ -21,32 +18,34 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 
-@client.event
+# Imposta il prefisso dei comandi e gli intents
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+@bot.event
 async def on_ready():
-    print(f"✅ Bot connesso come {client.user}")
+    print(f"✅ Bot connesso come {bot.user}")
 
-@client.event
-async def on_message(message):
-    print(f"Messaggio ricevuto: {message.content}")
+# Comando ping
+@bot.command()
+async def ping(ctx):
+    await ctx.send("🏓 Pong!")
 
-    if message.author == client.user:
-        return
+# Comando paypal
+@bot.command()
+async def paypal(ctx):
+    await ctx.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
 
-    if message.content.lower() == "!ping":
-        await message.channel.send("🏓 Pong!")
-
-    if message.content.lower().strip() == "!paypal":
-        await message.channel.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
-
+# Comando dna che manda un video
 @bot.command()
 async def dna(ctx):
-    try:
-        await ctx.send(file=discord.File('dna_id_.mp4'))
-    except Exception as e:
-        await ctx.send(f"Errore nell'inviare il video: {e}")
+    video_path = "dna_id_.mp4"  # Assicurati che il file sia nella stessa cartella di bot.py
+    await ctx.send(file=discord.File(video_path))
 
 if __name__ == "__main__":
-    keep_alive()  # Avvia il server Flask (obbligatorio per Render)
-    TOKEN = os.getenv("DISCORD_TOKEN")  # Prende il token da Render
-    client.run(TOKEN)
+    keep_alive()  # Avvia il server Flask
+    TOKEN = os.getenv("DISCORD_TOKEN")  # Prende il token da variabile ambiente su Render
+    bot.run(TOKEN)
 
