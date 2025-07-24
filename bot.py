@@ -40,23 +40,47 @@ async def paypal(ctx):
 
 @bot.command()
 async def dna(ctx):
-    await ctx.send(
-        "**🧬 Come leggere la tua DNA ID**\n\n"
-        "Segui questi passaggi per ottenere il tuo DNA ID univoco:\n\n"
-        "1️⃣ **Collega la scheda 75T via USB/JTAG (CH347)**\n"
-        "2️⃣ **Installa i driver CH347 se richiesto**\n"
-        "3️⃣ **Apri il tool GetZenith 75T DNA Reader**\n"
-        "4️⃣ **Attendi qualche secondo**\n\n"
-        "Quando compare la scritta:\n"
-        "```yaml\nFound DNA: 0x38F4A0F21B3D7C12\n```\n"
-        "📋 Copia quel codice e invialo nel ticket a **GetZenith**\n"
-        "🔐 Ti genereremo il firmware legato al tuo ID univoco di scheda"
+    embed = discord.Embed(
+        title="🔬 How to Read Your DNA ID",
+        description="Follow these steps to get your unique DNA ID:",
+        color=discord.Color.blue()
     )
 
-    await ctx.send(file=discord.File("dna_id_.mp4"))  # Assicurati che il video sia nella cartella del bot
+    embed.add_field(
+        name="📌 Steps:",
+        value="```1️⃣ Connect the 75T board via USB/JTAG (CH347)\n"
+              "2️⃣ Install the CH347 driver if prompted\n"
+              "3️⃣ Open the GetZenith 75T DNA Reader tool\n"
+              "4️⃣ Wait a few seconds```",
+        inline=False
+    )
+
+    embed.add_field(
+        name="🔍 When you see the message:",
+        value="```Found DNA: 0x38F4A0F21B3D7C12```",
+        inline=False
+    )
+
+    embed.add_field(
+        name="📋 What to do next:",
+        value="Copy the code and send it in your **GetZenith ticket**\n"
+              "🔐 We'll generate firmware tied to your unique board ID.",
+        inline=False
+    )
+
+    embed.add_field(
+        name="🎥 Video Tutorial",
+        value="[Click here to watch the video](https://www.youtube.com/watch?v=QeQNl7JgOXA)",
+        inline=False
+    )
+
+    embed.set_footer(text="GetZenith Team – All rights reserved")
+    embed.set_author(name="GetZenith", icon_url="attachment://logo.png")
+
+    file = discord.File("logo.png", filename="logo.png")
+    await ctx.send(file=file, embed=embed)
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask
-    TOKEN = os.getenv("DISCORD_TOKEN")  # Prende il token da variabile ambiente su Render
-    bot.run(TOKEN)
-
+    TOKEN = os.getenv("DISCORD_TOKEN")
+bot.run(TOKEN)
