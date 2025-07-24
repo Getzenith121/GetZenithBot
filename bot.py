@@ -27,7 +27,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    print(f"Messaggio ricevuto: {message.content}")  # <-- AGGIUNGI QUESTA RIGA QUI
+    print(f"Messaggio ricevuto: {message.content}")
 
     if message.author == client.user:
         return
@@ -35,9 +35,15 @@ async def on_message(message):
     if message.content.lower() == "!ping":
         await message.channel.send("🏓 Pong!")
 
-    if message.content.lower() == "!paypal":
+    if message.content.lower().strip() == "!paypal":
         await message.channel.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
 
+@bot.command()
+async def dna(ctx):
+    try:
+        await ctx.send(file=discord.File('dna_id_.mp4'))
+    except Exception as e:
+        await ctx.send(f"Errore nell'inviare il video: {e}")
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask (obbligatorio per Render)
