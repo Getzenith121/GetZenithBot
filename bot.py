@@ -40,6 +40,8 @@ async def paypal(ctx):
 
 @bot.command()
 async def dna(ctx):
+    dna_code = "0x38F4A0F21B3D7C12"  # Puoi sostituirlo con quello reale
+
     embed = discord.Embed(
         title="🔬 How to Read Your DNA ID",
         description="Follow these steps to get your unique DNA ID:",
@@ -48,23 +50,24 @@ async def dna(ctx):
 
     embed.add_field(
         name="📌 Steps:",
-        value="```1️⃣ Connect the 75T board via USB/JTAG (CH347)\n"
-              "2️⃣ Install the CH347 driver if prompted\n"
-              "3️⃣ Open the GetZenith 75T DNA Reader tool\n"
-              "4️⃣ Wait a few seconds```",
+        value=(
+            "1️⃣ Connect the 75T board via USB/JTAG (CH347)\n"
+            "2️⃣ Install the CH347 driver if prompted\n"
+            "3️⃣ Open the GetZenith 75T DNA Reader tool\n"
+            "4️⃣ Wait a few seconds"
+        ),
         inline=False
     )
 
     embed.add_field(
-        name="🔍 When you see the message:",
-        value="```Found DNA: 0x38F4A0F21B3D7C12```",
+        name="🔎 When you see the message:",
+        value=f"```Found DNA:  {dna_code}```",
         inline=False
     )
 
     embed.add_field(
         name="📋 What to do next:",
-        value="Copy the code and send it in your **GetZenith ticket**\n"
-              "🔐 We'll generate firmware tied to your unique board ID.",
+        value="Copy the code and send it in your **GetZenith ticket**\n🔐 We'll generate firmware tied to your unique board ID.",
         inline=False
     )
 
@@ -74,7 +77,7 @@ async def dna(ctx):
         inline=False
     )
 
-    embed.set_footer(text="GetZenith Team – All rights reserved")
+    embed.set_footer(text="GetZenith Team • All rights reserved")
     embed.set_author(name="GetZenith", icon_url="attachment://logo.png")
 
     file = discord.File("logo.png", filename="logo.png")
