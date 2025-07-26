@@ -73,7 +73,7 @@ async def dna(ctx):
 
     embed.add_field(
         name="🎥 Video Tutorial",
-        value="[Click here to watch the video](https://www.youtube.com/watch?v=QeQNl7JgOXA)",
+        value="[Click here to watch the video](https://www.youtube.com/watch?v=gl-eL0z3Bmc)",
         inline=False
     )
 
