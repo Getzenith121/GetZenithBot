@@ -40,44 +40,39 @@ async def paypal(ctx):
 
 @bot.command()
 async def dna(ctx):
-    dna_code = "0x38F4A0F21B3D7C12"  # Puoi sostituirlo con quello reale
+    dna_code = "0x38FA0F21B3D7C12"  # Puoi sostituirlo con quello reale
 
     embed = discord.Embed(
-        title="🔬 How to Read Your DNA ID",
+        title="🧬 How to Read Your DNA ID",
         description="Follow these steps to get your unique DNA ID:",
         color=discord.Color.blue()
     )
 
     embed.add_field(
-        name="📌 Steps:",
-        value=(
-            "1️⃣ Connect the 75T board via USB/JTAG (CH347)\n"
-            "2️⃣ Install the CH347 driver if prompted\n"
-            "3️⃣ Open the GetZenith 75T DNA Reader tool\n"
-            "4️⃣ Wait a few seconds"
-        ),
+        name="📥 Tool Download",
+        value="[Click here to download the GetZenith DNA Reader Tool](https://drive.google.com/uc?export=download&id=1YAV0W1O0ppEyCdkh2rUEV7pU5xKhv7OH)",
         inline=False
     )
 
     embed.add_field(
-        name="🔎 When you see the message:",
-        value=f"```Found DNA:  {dna_code}```",
+        name="🔢 When you see the message:",
+        value=f"```Found DNA: {dna_code}```",
         inline=False
     )
 
     embed.add_field(
-        name="📋 What to do next:",
-        value="Copy the code and send it in your **GetZenith ticket**\n🔐 We'll generate firmware tied to your unique board ID.",
+        name="📩 What to do next:",
+        value="Copy the code and send it in your **GetZenith ticket** 🧾\nWe'll generate firmware tied to your unique board ID.",
         inline=False
     )
 
     embed.add_field(
-        name="🎥 Video Tutorial",
+        name="🎬 Video Tutorial",
         value="[Click here to watch the video](https://www.youtube.com/watch?v=gl-eL0z3Bmc)",
         inline=False
     )
 
-    embed.set_footer(text="GetZenith Team • All rights reserved")
+    embed.set_footer(text="GetZenith Team © All rights reserved")
     embed.set_author(name="GetZenith", icon_url="attachment://logo.png")
 
     file = discord.File("logo.png", filename="logo.png")
