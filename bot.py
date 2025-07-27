@@ -49,20 +49,30 @@ async def dna(ctx):
     )
 
     embed.add_field(
-        name="📥 Tool Download",
-        value="[Click here to download the GetZenith DNA Reader Tool](https://drive.google.com/uc?export=download&id=1YAV0W1O0ppEyCdkh2rUEV7pU5xKhv7OH)",
+        name="📌 Steps:",
+        value="🔢 Connect the 75T board via USB/JTAG (CH347)\n"
+              "🔢 Install the CH347 driver if prompted\n"
+              "🔢 Open the GetZenith 75T DNA Reader tool\n"
+              "🔢 Wait a few seconds",
         inline=False
     )
 
     embed.add_field(
-        name="🔢 When you see the message:",
+        name="📎 Tool Download",
+        value="Attached below ⬇️: `GetZenith_DNA_ID.zip`",
+        inline=False
+    )
+
+    embed.add_field(
+        name="📥 When you see the message:",
         value=f"```Found DNA: {dna_code}```",
         inline=False
     )
 
     embed.add_field(
-        name="📩 What to do next:",
-        value="Copy the code and send it in your **GetZenith ticket** 🧾\nWe'll generate firmware tied to your unique board ID.",
+        name="📨 What to do next:",
+        value="Copy the code and send it in your **GetZenith ticket** 🛠️\n"
+              "We'll generate firmware tied to your unique board ID.",
         inline=False
     )
 
@@ -72,11 +82,13 @@ async def dna(ctx):
         inline=False
     )
 
-    embed.set_footer(text="GetZenith Team © All rights reserved")
+    embed.set_footer(text="© GetZenith Team 🔒 All rights reserved")
     embed.set_author(name="GetZenith", icon_url="attachment://logo.png")
 
-    file = discord.File("logo.png", filename="logo.png")
-    await ctx.send(file=file, embed=embed)
+    logo = discord.File("logo.png", filename="logo.png")
+    tool = discord.File("GetZenith_DNA_ID.zip", filename="GetZenith_DNA_ID.zip")
+
+    await ctx.send(files=[logo, tool], embed=embed)
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask
