@@ -40,29 +40,41 @@ async def paypal(ctx):
 
 @bot.command(name="dna")
 async def dna(ctx):
-    try:
-        file = discord.File("GetZenith_DNA_ID.zip", filename="GetZenith_DNA_ID.zip")
-        logo = discord.File("logo.png", filename="logo.png")
+    dna_code = "0x38FA0F21B3D7C12"  # sostituisci con il codice reale
 
-        embed = discord.Embed(
-            title="🧬 How to Read Your DNA ID",
-            description=(
-                "**Follow these steps to get your unique DNA ID:**\n\n"
-                "📥 **Tool Download**\n"
-                "Click the file below to download the GetZenith DNA Reader Tool.\n\n"
-                "🔢 **When you see the message:**\n"
-                "`Found  DNA:  0x38FA0F21B3D7C12`\n\n"
-                "📩 **What to do next:**\n"
-                "Send the code in a **GetZenith ticket** and we'll generate your firmware!"
-            ),
-            color=0x00ff00
-        )
+    embed = discord.Embed(
+        title="🔬 How to Read Your DNA ID",
+        description="Follow these steps to get your unique DNA ID:",
+        color=0x00ff00
+    )
 
-        embed.set_thumbnail(url="attachment://logo.png")
-        await ctx.send(embed=embed, files=[file, logo])
+    embed.set_thumbnail(url="attachment://logo.png")  # logo allegato
 
-    except Exception as e:
-        await ctx.send(f"❌ Errore durante l'invio del file DNA: `{e}`")
+    embed.add_field(
+        name="📥 Tool Download",
+        value="[Click here to download the GetZenith DNA Reader Tool](https://drive.google.com/uc?export=download&id=1YAV0W1O0ppEyCdkh2rUEV7pU5xKhv7OH)",
+        inline=False
+    )
+    embed.add_field(
+        name="🧬 When you see the message:",
+        value=f"```Found DNA: {dna_code}```",
+        inline=False
+    )
+    embed.add_field(
+        name="📩 What to do next:",
+        value="Copy the code and send it in your **GetZenith ticket**.\nWe’ll generate firmware tied to your unique board ID.",
+        inline=False
+    )
+    embed.add_field(
+        name="🎥 Video Tutorial",
+        value="[Click here to watch the video](https://youtu.be/ILUOJx67d5M)",
+        inline=False
+    )
+
+    embed.set_footer(text="GetZenith Team © All rights reserved")
+
+    logo = discord.File("logo.png", filename="logo.png")
+    await ctx.send(file=logo, embed=embed)
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask
