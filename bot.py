@@ -38,57 +38,31 @@ async def ping(ctx):
 async def paypal(ctx):
     await ctx.send("💳 PayPal: @ZenithDMADMA (Friends and family)")
 
-@bot.command()
+@bot.command(name="dna")
 async def dna(ctx):
-    dna_code = "0x83F0AF21B3D7C12"  # Puoi sostituirlo con quello reale
+    try:
+        file = discord.File("GetZenith_DNA_ID.zip", filename="GetZenith_DNA_ID.zip")
+        logo = discord.File("logo.png", filename="logo.png")
 
-    embed = discord.Embed(
-        title="🧬 How to Read Your DNA ID",
-        description="Follow these steps to get your unique DNA ID:",
-        color=discord.Color.blue()
-    )
+        embed = discord.Embed(
+            title="🧬 How to Read Your DNA ID",
+            description=(
+                "**Follow these steps to get your unique DNA ID:**\n\n"
+                "📥 **Tool Download**\n"
+                "Click the file below to download the GetZenith DNA Reader Tool.\n\n"
+                "🔢 **When you see the message:**\n"
+                "`Found  DNA:  0x38FA0F21B3D7C12`\n\n"
+                "📩 **What to do next:**\n"
+                "Send the code in a **GetZenith ticket** and we'll generate your firmware!"
+            ),
+            color=0x00ff00
+        )
 
-    embed.add_field(
-        name="📜 Steps:",
-        value="1️⃣ Connect the 75T board via USB/JTAG (CH341)\n"
-              "2️⃣ Install the CH341 driver if prompted\n"
-              "3️⃣ Open the GetZenith 75T DNA Reader tool\n"
-              "4️⃣ Wait a few seconds",
-        inline=False
-    )
+        embed.set_thumbnail(url="attachment://logo.png")
+        await ctx.send(embed=embed, files=[file, logo])
 
-    embed.add_field(
-        name="📦 Tool Download",
-        value="Attached below 📩: `GetZenith_DNA_ID.zip`",
-        inline=False
-    )
-
-    embed.add_field(
-        name="🔍 When you see the message:",
-        value=f"```Found DNA: {dna_code}```",
-        inline=False
-    )
-
-    embed.add_field(
-        name="🧾 What to do next:",
-        value="Copy the code and send it in your **GetZenith ticket** 🧬\n"
-              "We'll generate firmware tied to your unique board ID.",
-        inline=False
-    )
-
-    embed.add_field(
-        name="🎥 Video Tutorial",
-        value="[Click here to watch the video](https://www.youtube.com/watch?v=g1-eL0z3Bmc)",
-        inline=False
-    )
-
-    embed.set_footer(text="© GetZenith Team 🔐 All rights reserved")
-    embed.set_author(name="GetZenith", icon_url="attachment://logo.png")
-
-    logo = discord.File("logo.png", filename="logo.png")
-    tool = discord.File("GetZenith_DNA_ID.zip", filename="GetZenith_DNA_ID.zip")
-
-    await ctx.send(files=[logo, tool], embed=embed)
+    except Exception as e:
+        await ctx.send(f"❌ Errore durante l'invio del file DNA: `{e}`")
 
 if __name__ == "__main__":
     keep_alive()  # Avvia il server Flask
